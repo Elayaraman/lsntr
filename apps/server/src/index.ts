@@ -1,12 +1,23 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import http from 'http';
+import corsMiddleware from './middleware/cors';
+import uploadRouter from './routes/upload';
+import { initSocket } from './socket/index';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const server = http.createServer(app);
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello, TypeScript Express!');
+app.use(corsMiddleware);
+app.use(express.json());
+
+app.use('/api', uploadRouter);
+
+app.get('/api/ping', (req, res) => {
+  res.json({ status: 'ok' });
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+server.listen(3000, () => {
+  console.log('Server running at http://localhost:3000');
 });
+
+initSocket(server);
