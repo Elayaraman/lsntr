@@ -9,5 +9,10 @@
     "dev:client": "npm run dev -w apps/client",
     "dev:server": "npm run dev -w apps/server",
     "dev": "npm run dev:client & npm run dev:server"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.2.1",
+    "@tailwindcss/vite": "^4.2.1",
+    "tailwindcss": "^4.2.1"
   }
 }
